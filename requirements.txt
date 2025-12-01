@@ -1,0 +1,15 @@
+# requirements.txt
+# 模式识别作业 - MNIST分类实验
+
+# 核心依赖
+torch>=2.9.1
+torchvision>=0.24.1
+scikit-learn>=1.7.2
+
+# 数据处理和计算
+numpy>=2.3.5
+scipy>=1.16.3
+pandas>=2.3.3
+
+# 可视化
+matplotlib>=3.10.7
