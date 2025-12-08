@@ -1,7 +1,7 @@
 # qdf_rda.py - 带RDA正则化的QDF
 import numpy as np
 
-class SimpleQDF_RDA:
+class QDF_RDA:
     def __init__(self, reg_param=0.5):
         """
         reg_param: 正则化参数

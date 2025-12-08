@@ -4,7 +4,7 @@ class LDA:
     def __init__(self, n_components):
         self.n_components = n_components
         self.mean = None
-        self.components = None
+        self.components = None      # 投影矩阵（特征向量构成）
     
     def fit(self, X, y):
         """训练LDA：找到最好分开各类的方向"""
@@ -35,11 +35,11 @@ class LDA:
             S_w += np.dot(X_c_centered.T, X_c_centered)
             
             # 类间散度
-            mean_diff = (mean_c - self.mean).reshape(-1, 1)
+            mean_diff = (mean_c - self.mean).reshape(-1, 1) # 为计算外积，需转换为列向量
             S_b += n_c * np.dot(mean_diff, mean_diff.T)
         
         # 3. 解广义特征值问题：S_w^{-1} S_b
-        S_w_inv = np.linalg.pinv(S_w)  # 伪逆，防止奇异
+        S_w_inv = np.linalg.pinv(S_w)  
         matrix = np.dot(S_w_inv, S_b)
         
         # 4. 特征值分解
