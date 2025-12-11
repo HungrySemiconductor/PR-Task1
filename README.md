@@ -1,7 +1,6 @@
 Pattern-Recognition
 
 ```
-├── .venv				# 虚拟环境
 ├── requirements.txt	# 依赖库文件
 ├── mnist_data/			# MNIST数据集
 │   ├── train-images-idx3-ubyte.gz

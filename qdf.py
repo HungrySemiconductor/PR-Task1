@@ -3,20 +3,13 @@ import numpy as np
 
 class QDF_RDA:
     def __init__(self, reg_param=0.5):
-        """
-        reg_param: 正则化参数
-        0: 标准QDF（容易出错）
-        0.5: 一半用样本协方差，一半用球面协方差
-        1: 完全球面协方差（稳定）
-        """
-        self.reg_param = reg_param
+        self.reg_param = reg_param  # 正则化参数
         self.classes = None
         self.means = None      # 各类别均值
         self.covs = None       # 正则化后的协方差矩阵
         self.priors = None     # 先验概率
     
     def fit(self, X, y):
-        """训练QDF模型"""
         self.classes = np.unique(y)
         n_classes = len(self.classes)
         n_features = X.shape[1]
@@ -51,7 +44,12 @@ class QDF_RDA:
         return self
     
     def _apply_rda(self, cov):
-        """RDA正则化"""
+        """
+        reg_param: 
+        0: 标准QDF（容易出错）
+        0.5: 一半用样本协方差，一半用球面协方差
+        1: 完全球面协方差（稳定）
+        """
         n_features = cov.shape[0]
         
         if self.reg_param == 0:
@@ -74,7 +72,6 @@ class QDF_RDA:
             return reg_cov
     
     def predict(self, X):
-        """预测"""
         n_samples = X.shape[0]
         n_classes = len(self.classes)
         

@@ -7,7 +7,6 @@ class LDA:
         self.components = None      # 投影矩阵（特征向量构成）
     
     def fit(self, X, y):
-        """训练LDA：找到最好分开各类的方向"""
         n_samples, n_features = X.shape
         classes = np.unique(y)
         n_classes = len(classes)
@@ -53,11 +52,9 @@ class LDA:
         return self
     
     def transform(self, X):
-        """降维"""
         X_centered = X - self.mean
         return np.dot(X_centered, self.components)
     
     def fit_transform(self, X, y):
-        """训练并转换数据（一步完成）"""
         self.fit(X, y)
         return self.transform(X)

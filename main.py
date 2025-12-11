@@ -1,5 +1,6 @@
 import numpy as np
 import time
+import json
 
 # 导入您的自定义模块
 from data_loader import load_mnist_pytorch, split_validation
@@ -10,15 +11,9 @@ from knn import KNN
 
 # 自己实现准确率计算函数
 def compute_accuracy(y_true, y_pred):
-    """计算准确率 - 自己实现，不依赖sklearn"""
     return np.mean(y_true == y_pred)
 
-def run_simple_experiment():
-    """运行简化实验：只对比准确率"""
-    
-    print("="*60)
-    print("模式识别算法简化对比实验")
-    print("="*60)
+def run_experiment():
     
     # 1. 加载数据
     print("\n1. 加载MNIST数据...")
@@ -26,9 +21,9 @@ def run_simple_experiment():
     X_train, y_train, X_val, y_val = split_validation(X_train, y_train, val_ratio=0.1)
     
     # 2. 实验配置
-    dimensions = [5, 9, 20, 50, 100]  # 只测试关键维度
-    knn_k_values = [1, 5]           # 只测试两个k值
-    qdf_reg_params = [0.1, 0.5]     # 只测试两个正则化参数
+    dimensions = [5, 9, 20, 50, 100]            # 维度
+    knn_k_values = [1, 3, 5, 10]                # k值
+    qdf_reg_params = [0, 0.25, 0.5, 0.75, 1]    # 正则化参数
     
     # 3. 存储结果
     results = []
@@ -180,12 +175,8 @@ def run_simple_experiment():
 
 if __name__ == "__main__":
     # 运行实验
-    experiment_results = run_simple_experiment()
+    experiment_results = run_experiment()
     
-    # 手动生成简单报告
-    print(f"\n{'='*60}")
-    print("简单分析报告")
-    print(f"{'='*60}")
     
     # 找到最佳结果
     best_by_accuracy = max(experiment_results, key=lambda x: x['测试准确率'])
@@ -199,4 +190,8 @@ if __name__ == "__main__":
           f"维度={best_by_speed['维度']}, 参数={best_by_speed['参数']}, "
           f"时间={best_by_speed['测试时间']:.3f}秒")
     
-    print(f"\n注: 准确率 = 正确预测数 / 总样本数，完全用NumPy计算，无外部依赖")
+    # === 新增代码：将实验结果保存为 JSON 文件 ===
+    output_filename = 'experiment_results.json'
+    with open(output_filename, 'w') as f:
+        json.dump(experiment_results, f, indent=4)
+    print(f"\n 结果已保存到 {output_filename}")

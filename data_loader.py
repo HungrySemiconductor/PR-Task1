@@ -4,13 +4,6 @@ import numpy as np
 
 def load_mnist_pytorch(data_dir='./mnist_data'):
     print(f"开始加载MNIST数据到{data_dir}")
-
-    # ## 定义预处理操作
-    # # 将图像转换为PyTorch张量，并自动归一化
-    # # 把图像维度从(H, W)变成(C, H, W)，其中C是通道数，C=1表示灰度图
-    # transform = transforms.Compose([
-    #     transforms.ToTensor()    
-    # ])
     
     try:
         # 加载训练集
