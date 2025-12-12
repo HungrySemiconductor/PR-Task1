@@ -190,7 +190,7 @@ if __name__ == "__main__":
           f"维度={best_by_speed['维度']}, 参数={best_by_speed['参数']}, "
           f"时间={best_by_speed['测试时间']:.3f}秒")
     
-    # === 新增代码：将实验结果保存为 JSON 文件 ===
+    # === 将实验结果保存为 JSON 文件 ===
     output_filename = 'experiment_results.json'
     with open(output_filename, 'w') as f:
         json.dump(experiment_results, f, indent=4)
